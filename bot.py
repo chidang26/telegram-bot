@@ -264,45 +264,28 @@ async def sendnow(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(f"✅ Xong. OK: {ok}, Fail: {fail}")
  
-
 def main():
     if not TOKEN:
         raise RuntimeError("Thiếu BOT_TOKEN. Hãy set biến môi trường BOT_TOKEN trước khi chạy.")
 
     app = Application.builder().token(TOKEN).build()
 
-    # init db before polling
-    app.post_init = lambda application: init_db()
+    async def post_init(application):
+        await init_db()
+    app.post_init = post_init
 
-
-    # lệnh cho người dùng 
+    # lệnh cho người dùng
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("help", help_cmd))
     app.add_handler(CommandHandler("myid", myid))
     app.add_handler(CommandHandler("subscribe", subscribe))
     app.add_handler(CommandHandler("unsubscribe", unsubscribe))
 
-    # lệnh của admin 
+    # lệnh admin
     app.add_handler(CommandHandler("broadcast", broadcast))
     app.add_handler(CommandHandler("stats", stats))
     app.add_handler(CommandHandler("sendnow", sendnow))
 
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("help", help_cmd))
-
-    # game
-    # app.add_handler(CommandHandler("guess_start", guess_start))
-    # app.add_handler(CommandHandler("guess_stop", guess_stop))
-    # app.add_handler(CommandHandler("guess", guess))
-
-    # app.add_handler(CommandHandler("dice", dice))
-    # app.add_handler(CommandHandler("rps", rps))
-
-    #convert other file
-    from games import register as register_games
-    register_games(app)
-
-    # anti-spam for groups
     app.add_handler(MessageHandler(filters.ALL, anti_spam), group=1)
 
     app.run_polling(allowed_updates=Update.ALL_TYPES)
