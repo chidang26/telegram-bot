@@ -111,7 +111,7 @@ async def game_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• /guess_stop - dừng game đoán số\n"
         "• /dice - tung xúc xắc đấu bot\n"
         "• /rps rock|paper|scissors - oẳn tù tì\n"
-        "• /help - xem lại hướng dẫn"
+        "• /game_help - xem lại hướng dẫn"
     )
 
 async def game_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -231,6 +231,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• /unsubscribe: tắt nhận thông báo\n"
         "• /help: xem lệnh\n"
         "• /myid: xem user id\n"
+        "• /game_start: bắt đầu game vui:))\n"
     )
 
 
@@ -242,6 +243,7 @@ async def help_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "• /subscribe\n"
         "• /unsubscribe\n"
         "• /myid\n\n"
+        "• /game_start: bắt đầu game vui:))\n"
         "Lệnh admin:\n"
         "• /broadcast <nội dung>\n"
         "• /stats\n"
