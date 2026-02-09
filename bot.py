@@ -298,6 +298,10 @@ def main():
     # app.add_handler(CommandHandler("dice", dice))
     # app.add_handler(CommandHandler("rps", rps))
 
+    #convert other file
+    from games import register as register_games
+    register_games(app)
+
     # anti-spam for groups
     app.add_handler(MessageHandler(filters.ALL, anti_spam), group=1)
 

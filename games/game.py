@@ -141,9 +141,22 @@ def main():
 
     app = Application.builder().token(TOKEN).build()
 
+    # ===== COMMAND HANDLERS =====
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_cmd))
+
+    app.add_handler(CommandHandler("guess_start", guess_start))
+    app.add_handler(CommandHandler("guess", guess))
+    app.add_handler(CommandHandler("guess_stop", guess_stop))
+
+    app.add_handler(CommandHandler("dice", dice))
+    app.add_handler(CommandHandler("rps", rps))
+
+    # ===== TEXT HANDLER (shortcut đoán số) =====
     app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, on_text))
 
     app.run_polling(allowed_updates=Update.ALL_TYPES)
+
 
 if __name__ == "__main__":
     main()
