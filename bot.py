@@ -263,7 +263,7 @@ async def sendnow(update: Update, context: ContextTypes.DEFAULT_TYPE):
         await asyncio.sleep(BROADCAST_SLEEP_SECONDS)
 
     await update.message.reply_text(f"✅ Xong. OK: {ok}, Fail: {fail}")
-
+ 
 
 def main():
     if not TOKEN:
@@ -286,6 +286,17 @@ def main():
     app.add_handler(CommandHandler("broadcast", broadcast))
     app.add_handler(CommandHandler("stats", stats))
     app.add_handler(CommandHandler("sendnow", sendnow))
+
+    app.add_handler(CommandHandler("start", start))
+    app.add_handler(CommandHandler("help", help_cmd))
+
+    # game
+    # app.add_handler(CommandHandler("guess_start", guess_start))
+    # app.add_handler(CommandHandler("guess_stop", guess_stop))
+    # app.add_handler(CommandHandler("guess", guess))
+
+    # app.add_handler(CommandHandler("dice", dice))
+    # app.add_handler(CommandHandler("rps", rps))
 
     # anti-spam for groups
     app.add_handler(MessageHandler(filters.ALL, anti_spam), group=1)
