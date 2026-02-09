@@ -28,6 +28,8 @@ logging.basicConfig(
     level=logging.INFO,
 )
 
+
+
 TOKEN = os.getenv("BOT_TOKEN")
 DB_PATH = os.getenv("DB_PATH", "bot.db")
 
@@ -113,7 +115,7 @@ async def game_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 async def game_help(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await start(update, context)
+    await game_start(update, context)
 
 # --- Guess number game ---
 async def guess_start(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -401,9 +403,9 @@ def main():
 
     app = Application.builder().token(TOKEN).build()
 
-    async def post_init(application):
-        await init_db()
-    app.post_init = post_init
+    # async def post_init(application):
+    #     await init_db()
+    # app.post_init = post_init
 
     # lệnh cho người dùng
     app.add_handler(CommandHandler("start", start))
@@ -420,8 +422,8 @@ def main():
     app.add_handler(MessageHandler(filters.ALL, anti_spam), group=1)
 # GAMEEEE
     # ===== COMMAND HANDLERS =====
-    app.add_handler(CommandHandler("Game start", game_start))
-    app.add_handler(CommandHandler("Game help", game_help))
+    app.add_handler(CommandHandler("game_start", game_start))
+    app.add_handler(CommandHandler("game_help", game_help))
 
     app.add_handler(CommandHandler("guess_start", guess_start))
     app.add_handler(CommandHandler("guess", guess))
